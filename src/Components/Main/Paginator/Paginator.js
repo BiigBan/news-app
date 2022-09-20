@@ -20,7 +20,7 @@ export default function Paginator({ setCurrentPage, allArticles }) {
     
 
     return (
-        <Box sx={{ display: 'flex', justifyContent: 'center', margin: '20px 0 20px 0' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', margin: '20px 0 30px 0' }}>
             <Stack spacing={2}>
                 {!smallPhone ?
                     <Pagination onChange={pageClicked} count={count} /> :
