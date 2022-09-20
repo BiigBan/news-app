@@ -1,5 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+
 .App {
   text-align: center;
+}
+body{
+  background: #FDFDFD;
+}
+body::-webkit-scrollbar{
+  width: 8px;
+  background: #f2f2f2;
+  border-radius: 4px;
+}
+body::-webkit-scrollbar-thumb{
+  width: 8px;
+  background: #989898;
+  border-radius: 4px;
 }
 
 .App-logo {
