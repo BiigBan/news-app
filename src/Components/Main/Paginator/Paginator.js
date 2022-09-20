@@ -1,6 +1,7 @@
 import { Pagination, Stack } from '@mui/material'
 import { Box } from '@mui/system';
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { Context } from '../../../Context';
 
 export default function Paginator({ setCurrentPage, allArticles }) {
 
@@ -14,10 +15,17 @@ export default function Paginator({ setCurrentPage, allArticles }) {
         setCurrentPage(e.target.textContent)
     }
 
+
+    const smallPhone = useContext(Context);
+    
+
     return (
-        <Box sx={{display: 'flex', justifyContent: 'center', margin: '20px 0 20px 0'}}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', margin: '20px 0 20px 0' }}>
             <Stack spacing={2}>
-                <Pagination onClick={pageClicked} count={count} />
+                {!smallPhone ?
+                    <Pagination onChange={pageClicked} count={count} /> :
+                    <Pagination size='small' onChange={pageClicked} count={count} />
+                }
             </Stack>
         </Box>
     )

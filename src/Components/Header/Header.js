@@ -1,32 +1,37 @@
 import { Search } from '@mui/icons-material'
-import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material'
-import React from 'react'
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
+import TuneOutlinedIcon from '@mui/icons-material/TuneOutlined';
+import { Accordion, AccordionDetails, AccordionSummary, AppBar, Box, IconButton, TextField, Toolbar, Typography } from '@mui/material'
+import React, { useState } from 'react'
 import { Container } from '@mui/system';
 import logo from './../../assets/header/logo.svg';
 import style from './Header.module.css';
 
 export default function Header() {
 
+    const [text, setText] = useState('');
 
+
+    const textFieldChanged = (event) => {
+        setText(event.target.value);
+    }
+
+    const EnterFun = (event) => {
+        if(event.key === "Enter") {
+            console.log('send');
+        }
+    }
 
     return (
         <Box sx={{ flexGrow: 1 }} >
-            <AppBar sx={{boxShadow: 'none'}} position="static">
+            <AppBar sx={{ boxShadow: 'none' }} position="static">
                 <Container>
-                    <Toolbar>
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="div"
-                            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-                        >
+                    <Toolbar sx={{ padding: '0' }}>
+                        <Box sx={{ flexGrow: 1, margin: '00px 10px -20px 0' }}>
                             <a className={style.logo} href="/"><img src={logo} alt="logo image" /></a>
-                        </Typography>
-                        <Search>
-                            <SearchIcon/>
-                        </Search>
+                        </Box>
+                        <Box position='relative' sx={{ display: 'flex', alignItems: 'center' }}>
+                            <TextField onKeyUp={EnterFun} onChange={textFieldChanged} value={text}  id="standard-basic" label="Search news" variant="standard" />
+                        </Box>
                     </Toolbar>
                 </Container>
             </AppBar>

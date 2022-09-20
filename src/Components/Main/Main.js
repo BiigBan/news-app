@@ -50,7 +50,7 @@ export default function Main() {
         return (
             <Container >
 
-                <Typography variant="h2" component="div" sx={{ mb: '24px' }}>
+                <Typography fontFamily='Roboto' fontWeight='700' fontSize='36px' variant="h2" component="div" sx={{ mb: '24px' }}>
                     Latest News
                 </Typography>
 
