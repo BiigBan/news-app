@@ -5,8 +5,12 @@ import React, { useState } from 'react'
 import { Container } from '@mui/system';
 import logo from './../../assets/header/logo.svg';
 import style from './Header.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { searchNews } from '../../store/newsSlice';
 
 export default function Header() {
+
+    const dispatch = useDispatch();
 
     const [text, setText] = useState('');
 
@@ -17,7 +21,7 @@ export default function Header() {
 
     const EnterFun = (event) => {
         if(event.key === "Enter") {
-            console.log('send');
+            dispatch(searchNews({ q: text, lang: 'en', media: 'True' }))
         }
     }
 

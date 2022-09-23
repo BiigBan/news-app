@@ -8,43 +8,29 @@ import { Box, Container } from '@mui/system';
 import Item from './Item/Item';
 import Paginator from './Paginator/Paginator';
 import { Countertops } from '@mui/icons-material';
+import { useDispatch, useSelector } from 'react-redux';
+import { getArticles, getNews } from '../../store/newsSlice';
+import { logDOM } from '@testing-library/react';
 
 export default function Main() {
-    const [articles, setArticles] = useState([]);
-    const [allArticles, setAllArticles] = useState(0);
+
+    const news = useSelector(state => state.news);
     const [currentPage, setCurrentPage] = useState(1);
     const [counter, setCounter] = useState(0);
 
+    const dispatch = useDispatch()
+
     useEffect(() => {
-        const axios = require("axios");
-
-        const options = {
-            method: 'GET',
-            url: 'https://newscatcher.p.rapidapi.com/v1/latest_headlines',
-            params: { lang: 'en', media: 'True' },
-            headers: {
-                'X-RapidAPI-Key': 'ff2cdbd7b5msh8ce4e43184ff15ap1b9f0djsne4e318b2e942',
-                'X-RapidAPI-Host': 'newscatcher.p.rapidapi.com'
-            }
-        };
-
-        axios.request(options).then(function (response) {
-            setArticles(response.data.articles);
-            setAllArticles(response.data.articles.length)
-            console.log(response);
-        }).catch(function (error) {
-            console.error(error);
-        });
+        dispatch(getNews({lang: 'en', media: 'True'}))
     }, [])
 
-
-    if (articles.length === 0) {
+    if (news.articles.length === 0) {
         return <>Loading</>
     } else {
         let items = [];
-        for (let i = 0; i < articles.length; i++) {
+        for (let i = 0; i < news.articles.length; i++) {
             if (i >= ((currentPage * 6) - 1) && i < ((currentPage * 6) - 1 + 6)) {
-                    items.push(<Item currentPage={currentPage} key={articles[i]._id} item={articles[i]} />)
+                    items.push(<Item currentPage={currentPage} key={news.articles[i]._id} item={news.articles[i]} />)
             }
         }
         return (
@@ -57,7 +43,7 @@ export default function Main() {
                 <Grid container spacing={2}>
                     {items}
                 </Grid>
-                <Paginator allArticles={allArticles} setCurrentPage={setCurrentPage} />
+                <Paginator allArticles={news.allArticles} setCurrentPage={setCurrentPage} />
             </Container>
         );
     }
