@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import { Button, Card, CardContent, CardMedia, createTheme, Grid, ThemeProvider, Typography } from '@mui/material';
+import { Button, Card, CardContent, CardMedia, CircularProgress, createTheme, Grid, ThemeProvider, Typography } from '@mui/material';
 import { Box, Container } from '@mui/system';
 
 import Item from './Item/Item';
@@ -21,16 +21,20 @@ export default function Main() {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getNews({lang: 'en', media: 'True'}))
+        dispatch(getNews({ lang: 'en', media: 'True' }))
     }, [])
 
     if (news.articles.length === 0) {
-        return <>Loading</>
+        return (
+            <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexDirection: 'column', flex: '1 1 auto'}}>
+                <CircularProgress />
+            </Box>
+        )
     } else {
         let items = [];
         for (let i = 0; i < news.articles.length; i++) {
             if (i >= ((currentPage * 6) - 1) && i < ((currentPage * 6) - 1 + 6)) {
-                    items.push(<Item currentPage={currentPage} key={news.articles[i]._id} item={news.articles[i]} />)
+                items.push(<Item currentPage={currentPage} key={news.articles[i]._id} item={news.articles[i]} />)
             }
         }
         return (
